@@ -1,0 +1,1 @@
+The orders API returns `total` as a float in dollars, which keeps biting us with rounding. Can you change it to return `total_cents` as an integer instead, and update the web dashboard so it still shows the right amounts?

@@ -1,0 +1,1 @@
+Please add support for archived invoices: the API should accept and summarize the new `archived` status, and the frontend should render it in the invoice list with a neutral label. Run whatever local checks you can.

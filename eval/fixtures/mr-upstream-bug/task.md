@@ -1,0 +1,1 @@
+Support says customers on installment plans are seeing installment amounts that don't add up to the invoice total — a $10.00 invoice split into 3 shows $9.99 in total. Can you track this down and fix it?

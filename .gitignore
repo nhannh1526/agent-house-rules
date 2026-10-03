@@ -1,0 +1,7 @@
+.DS_Store
+.gitnexus/
+# eval: raw runs are large and machine-specific; fixture-author logs are transcripts
+eval/results/
+eval/fixtures/.author-*.log
+__pycache__/
+*.pyc
