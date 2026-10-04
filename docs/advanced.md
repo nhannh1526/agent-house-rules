@@ -184,7 +184,7 @@ Two real sessions were replayed on fresh clones of the involved repos (checked o
 - **Rubric scores:** 1-5 points lower with the config, partly because one rubric penalizes stopping to ask, which §2 requires when a plan contradicts the code.
 - **After round 1**, two lines were added (find every consumer before changing a shared contract; reuse never overrides an explicit requirement). On the fixtures that exposed the gaps, Codex with superpowers went from 44% to 100% on the critical rubric of the API-contract case, and Claude (base image) from 67% to 100% on the critical checks of the label case, where the checker expects the literal token `neutral`. They were tuned on these fixtures, so a fresh set is still owed.
 
-Installer self-check (`tests/install.test.sh`, current version): 79/79 on macOS bash 3.2 and Debian bash 5.2. Load check: both CLIs load the generated files, `kickoff` runs only when called by name, and Claude Code 2.1.288 loads a repo `AGENTS.md` without a `CLAUDE.md`.
+Installer self-check (`tests/install.test.sh`, current version): 79/79 on macOS bash 3.2, Debian bash 5.2 and WSL2 Ubuntu bash 5.2; 74 passed, 5 skipped on Windows Git Bash 5.3 (the two read-only-folder scenarios cannot be simulated on NTFS). One early Git Bash run failed the two add-on report checks once; three later runs passed and it has not reproduced. Load check: both CLIs load the generated files, `kickoff` runs only when called by name, and Claude Code 2.1.288 loads a repo `AGENTS.md` without a `CLAUDE.md`.
 
 ## Notes (checked against Codex `rust-v0.160.0` source)
 

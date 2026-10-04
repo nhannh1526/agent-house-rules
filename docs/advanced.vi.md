@@ -184,7 +184,7 @@ Kết luận: với task nhỏ, config không làm code tốt hơn đo được 
 - **Điểm rubric:** thấp hơn 1-5 điểm khi có config, một phần vì một rubric trừ điểm việc dừng lại hỏi, mà §2 yêu cầu khi plan mâu thuẫn với code.
 - **Sau vòng 1**, thêm hai dòng (tìm mọi consumer trước khi đổi contract dùng chung; tái sử dụng không được lấn yêu cầu ghi rõ). Trên chính các fixture lộ ra lỗ hổng, Codex có superpowers tăng từ 44% lên 100% ở rubric critical của case đổi API, và Claude (image sạch) từ 67% lên 100% ở check critical của case nhãn, nơi checker đòi đúng chữ `neutral`. Hai dòng này được chỉnh trên chính các fixture đó, nên vẫn cần một bộ fixture mới để kiểm chứng.
 
-Tự kiểm tra script cài (`tests/install.test.sh`, bản hiện tại): 79/79 trên macOS bash 3.2 và Debian bash 5.2. Kiểm tra nạp file: cả 2 CLI nạp file được tạo ra, `kickoff` chỉ chạy khi gọi đúng tên, và Claude Code 2.1.288 tự đọc `AGENTS.md` của repo dù không có `CLAUDE.md`.
+Tự kiểm tra script cài (`tests/install.test.sh`, bản hiện tại): 79/79 trên macOS bash 3.2, Debian bash 5.2 và WSL2 Ubuntu bash 5.2; 74 pass, 5 bỏ qua trên Windows Git Bash 5.3 (hai kịch bản thư mục chỉ-đọc không giả lập được trên NTFS). Một lần chạy đầu trên Git Bash fail 2 check báo add-on; ba lần sau đều pass và chưa tái hiện lại. Kiểm tra nạp file: cả 2 CLI nạp file được tạo ra, `kickoff` chỉ chạy khi gọi đúng tên, và Claude Code 2.1.288 tự đọc `AGENTS.md` của repo dù không có `CLAUDE.md`.
 
 ## Ghi chú (kiểm tra với source Codex `rust-v0.160.0`)
 
