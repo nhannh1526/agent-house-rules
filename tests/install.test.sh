@@ -12,8 +12,13 @@ PASS=0 FAIL=0
 
 ok() { PASS=$((PASS + 1)); echo "ok   $1"; }
 bad() { FAIL=$((FAIL + 1)); echo "FAIL $1"; }
-check() { local name="$1"; shift; if "$@"; then ok "$name"; else bad "$name"; fi; }
+check() { local name="$1"; shift; if "$@"; then ok "$name"; else bad "$name"
+  # For remote debugging: show the tail of the file a failed grep looked at.
+  local last="${!#}"; [ -f "$last" ] && tail -n 8 "$last" | sed 's/^/     | /'; fi; }
 not() { ! "$@"; }
+# chmod 555 only blocks writes on POSIX filesystems for non-root users (not on Windows/NTFS).
+perms_enforced() { local d; d="$(mktemp -d "$ROOT/perm.XXXXXX")"; chmod 555 "$d"
+  if touch "$d/probe" 2>/dev/null; then chmod 755 "$d"; return 1; fi; chmod 755 "$d"; return 0; }
 
 # Fresh HOME per scenario; the space in the name exercises quoting.
 new_home() { H="$ROOT/home $1"; mkdir -p "$H"; unset CODEX_HOME; }
@@ -144,7 +149,7 @@ check "truncated manifest refused" [ $? -ne 0 ]
 check "truncated manifest changes nothing" [ "$after" = "$(snap)" ]
 
 echo "# 9. install fails midway, undo still restores"
-if [ "$(id -u)" = 0 ]; then echo "skip (root ignores permissions)"; else
+if ! perms_enforced; then echo "skip (this filesystem or user ignores read-only folders, e.g. root or Windows)"; else
   new_home partial; seed_existing; before="$(snap)"
   chmod 555 "$H/.agents/skills"
   inst > "$ROOT/out" 2>&1
@@ -155,7 +160,7 @@ if [ "$(id -u)" = 0 ]; then echo "skip (root ignores permissions)"; else
 fi
 
 echo "# 10. uninstall fails midway, rerun finishes it"
-if [ "$(id -u)" = 0 ]; then echo "skip (root ignores permissions)"; else
+if ! perms_enforced; then echo "skip (this filesystem or user ignores read-only folders, e.g. root or Windows)"; else
   new_home resume; seed_existing; before="$(snap)"
   inst > "$ROOT/out" 2>&1; b="$(backup_of "$ROOT/out")"
   chmod 555 "$H/.codex"
