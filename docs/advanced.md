@@ -120,7 +120,7 @@ Rules cannot pick a model or effort; those are set before the session starts. `k
 | Medium (default) | Opus, `medium` | `gpt-6-astra`, `low` (`medium` scored no better in [eval round 3](../eval/RESULTS.md)) |
 | Large, multi-repo contract change, hard debugging | Opus, `/effort high` | `gpt-6-astra`, `high` via `/model` |
 | Review or cross-model audit | - | `gpt-6-astra`, `high` |
-| Subagents | Sonnet: `CLAUDE_CODE_SUBAGENT_MODEL` | `gpt-5.6-terra`, `medium`: `[agents] default_subagent_model` |
+| Subagents | Sonnet: `CLAUDE_CODE_SUBAGENT_MODEL` | `gpt-6-luna`, `medium`: `[agents] default_subagent_model` |
 
 The installer does not change these settings; set them yourself:
 
@@ -135,11 +135,13 @@ model = "gpt-6-astra"
 model_reasoning_effort = "low"
 
 [agents]
-default_subagent_model = "gpt-5.6-terra"
+default_subagent_model = "gpt-6-luna"
 default_subagent_reasoning_effort = "medium"
 ```
 
 `CLAUDE_CODE_SUBAGENT_MODEL` is only a default: when Claude passes a model to its `Agent` tool (haiku, sonnet, opus), that choice wins unless `CLAUDE_CODE_SUBAGENT_MODEL_FORCE` is set. So a line in `CLAUDE.md` could route subagents by job (for example haiku for search, opus for review); this config does not add one because it has not been measured. Codex subagents always use `default_subagent_model` unless the experimental `features.multi_agent_v2` spawn overrides are enabled.
+
+On Claude subscription plans, Fable models may be marked "Requires usage credits" (billed on top of the plan); the table sticks to models included in the plan.
 
 ## New project
 

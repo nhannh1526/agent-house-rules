@@ -120,7 +120,7 @@ Luật không chọn được model hay effort; những thứ đó được đ�
 | Medium (mặc định) | Opus, `medium` | `gpt-6-astra`, `low` (`medium` không tốt hơn ở [eval vòng 3](../eval/RESULTS.md)) |
 | Large, đổi contract nhiều repo, debug khó | Opus, `/effort high` | `gpt-6-astra`, `high` qua `/model` |
 | Review hoặc audit chéo | - | `gpt-6-astra`, `high` |
-| Subagent | Sonnet: `CLAUDE_CODE_SUBAGENT_MODEL` | `gpt-5.6-terra`, `medium`: `[agents] default_subagent_model` |
+| Subagent | Sonnet: `CLAUDE_CODE_SUBAGENT_MODEL` | `gpt-6-luna`, `medium`: `[agents] default_subagent_model` |
 
 Script cài không đổi các thiết lập này; tự đặt:
 
@@ -135,11 +135,13 @@ model = "gpt-6-astra"
 model_reasoning_effort = "low"
 
 [agents]
-default_subagent_model = "gpt-5.6-terra"
+default_subagent_model = "gpt-6-luna"
 default_subagent_reasoning_effort = "medium"
 ```
 
 `CLAUDE_CODE_SUBAGENT_MODEL` chỉ là mặc định: khi Claude truyền model vào tool `Agent` (haiku, sonnet, opus), lựa chọn đó thắng, trừ khi đặt `CLAUDE_CODE_SUBAGENT_MODEL_FORCE`. Vì vậy một dòng trong `CLAUDE.md` có thể chia model subagent theo loại việc (ví dụ haiku để tìm kiếm, opus để review); config này chưa thêm vì chưa đo. Subagent của Codex luôn dùng `default_subagent_model`, trừ khi bật phần spawn override thử nghiệm trong `features.multi_agent_v2`.
+
+Với gói subscription của Claude, các model Fable có thể có nhãn "Requires usage credits" (tính tiền ngoài gói); bảng trên chỉ dùng model có sẵn trong gói.
 
 ## Project mới
 
